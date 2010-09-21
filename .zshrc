@@ -91,8 +91,8 @@ setopt share_history
 setopt hist_ignore_dups
 setopt nohup
 #bindkey '\e[3~' delete-char
-#bindkey '\e[H' beginning-of-line
-#bindkey '\e[F' end-of-line
+bindkey '\e[H' beginning-of-line
+bindkey '\e[F' end-of-line
 bindkey "^[OH" beginning-of-line
 bindkey "^[OF" end-of-line 
 bindkey "^[[1~" beginning-of-line
