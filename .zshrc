@@ -145,7 +145,7 @@ then
         . ~/.keychain/${HOSTNAME}-sh
       fi
       if which git 1>/dev/null 2>&1; then 
-        git fetch origin master
+        _checkout
       fi
     fi
   fi
