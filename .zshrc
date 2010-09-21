@@ -178,6 +178,7 @@ zstyle ':completion:*' group-name ''
 zstyle ':completion:*:manuals' separate-sections true
 zstyle ':completion:*' menu select
 zstyle ':completion:*' verbose yes
+zstyle ':completion::complete:*' use-cache 1
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 export MANPATH=/opt/local/share/man:$MANPATH
 export DISPLAY=:0.0
