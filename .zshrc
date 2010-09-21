@@ -3,18 +3,55 @@ if [ -f /etc/profile ]; then
     source /etc/profile
 fi
 # Specific settings Dependding on what computer i am on...
-alias ls=' ls -G'
+if [[ $(uname) = 'SunOS' ]]; then
+    export PATH="/usr/gnu/bin:/opt/sfw/bin:/opt/sfw/sbin:/usr/sbin:/sbin:$PATH"
+    alias tar='gtar'
+fi
+export PATH="$HOME/bin:$HOME/.homefiles/bin:$PATH"
+export HISTSIZE=1000
+export SAVEHIST=1000
+export HISTFILE=~/.history
+export EDITOR="vim" VISUAL="vim"
+export PAGER="less"
+#export MANPAGER="col -b | view -c 'set ft=man nomod nolist nonu' -"
+export MANPATH="$HOME/share/man:/usr/share/man:$MANPATH"
+export PYTHONPATH="$HOME/lib/python:$HOME/lib/python2.4/site-packages:$PYTHONPATH"
+
+if [[ $(uname) = 'Darwin' ]]; then
+  alias ls=' ls -GF'
+  alias dmesg="sudo dmesg"
+fi
+
+if [[ $(uname) = 'Linux' ]]; then
+  alias ls=' ls --color=auto -F'
+  export ANDROID_JAVA_HOME=$JAVA_HOME
+  if [ "$USER" != "root" ]
+  then
+    alias emerge='sudo emerge'
+  fi
+fi
+
+if [[ $(uname) != 'SunOS' ]]; then
+    alias grep='grep --colour=auto'
+fi
+
+if [[ $(hostname) = 'athena' ]]; then
+    alias sgeusedcores='/bin/bash ~/sgeusedcores.sh'
+    . /opt/sge/util/dl.sh
+fi
+
+alias indent='indent -br -brs -cdw -ce -nut -nbfda -npcs -nbfde -nbc -nbad -cli4'
+
+function lwhich() {
+    ls -l $(which $@)
+}
+
+#alias homed=' screen -U -R -D -S home ssh root@tygart.dyndns.org'
+alias irc=' ~/scripts/irc'
+
 if [ "$USER" != "root" ]
 then
-	alias emerge='sudo emerge'
-fi
-alias homed=' screen -U -R -D -S home ssh root@tygart.dyndns.org'
-alias irc=' ~/scripts/irc'
-alias dmesg="sudo dmesg"
-alias fixspot="sudo chmod 775 /System/Library/CoreServices/Spotlight.app"
-if [ ! "$USER" = "root" ]
-then
-	export PATH="$PATH:/Users/$USER/scripts:/Users/$USER/scripts/android-sdk-mac_86/tools:/Users/$USER/scripts/android-sdk-mac_86/platforms/android-1.6/tools:/Users/$USER/Documents/Class Spring '10/CIS301/Checker/Checker"
+  export PATH="$PATH:$HOME/scripts:$HOME/scripts/android-sdk-mac_86/tools:$HOME/scripts/android-sdk-mac_86/platforms/android-1.6/tools"
 fi
 
 # Set some vars for progs
@@ -81,26 +118,28 @@ colors
 ZLS_COLORS=$LS_COLORS
 if [ "$USER" = "root" ]
 then
-        export PS1=" %{${fg[red]}%}%n%{${fg_bold[yellow]}%}@[%m] %{${fg[blue]}%}%~%{${reset_color}%} $ "
-	export PATH="${PATH}:/Users/mozes/scripts"
-	alias force-reboot='sleep 2; for x in r s u b ; do echo "${x}" >> /proc/sysrq-trigger ; sleep 2 ; done'
+  export PS1=" %{${fg[red]}%}%n%{${fg_bold[yellow]}%}@[%m] %{${fg[blue]}%}%~%{${reset_color}%} $ "
+  export PATH="${PATH}:~mozes/scripts"
 else
-        export PS1="%{${fg[green]}%}%n%{${fg_bold[yellow]}%}@[%m] %{${fg[blue]}%}%~%{${reset_color}%} $ "
+  export PS1="%{${fg[green]}%}%n%{${fg_bold[yellow]}%}@[%m] %{${fg[blue]}%}%~%{${reset_color}%} $ "
 fi
 export RPS1="%? %t"
 
 [ -z ${HOSTNAME} ] && HOSTNAME=$(uname -n)
-if [[ -z ${SSH_CONNECTION} ]] || [ "$HOSTNAME" == "loki" ]
+if [[ -z ${SSH_CONNECTION} ]] || [ "$HOSTNAME" == "athena" ] || [ "$HOSTNAME" == "loki" ]
 then
-    if which keychain 1>/dev/null 2>&1; then
-        if [[ $(whoami) != 'root' ]]; then
-            keychain id_rsa id_dsa
-            . ~/.keychain/${HOSTNAME}-sh
-        fi
+  if [[ -z ${SGE_JOBID} ]] && [ "$TERM" != "dumb" ]
+  then
+    if [[ $(whoami) != 'root' ]]; then
+      [ -n "`which git`" ] && git fetch origin master ~/
+      if which keychain 1>/dev/null 2>&1; then
+        keychain id_rsa id_dsa
+        . ~/.keychain/${HOSTNAME}-sh
+      fi
     fi
+  fi
 fi
 
-[ -n "`which git`" ] && git fetch origin master
 
 # manpage comletion
 man_glob () {
