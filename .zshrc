@@ -100,6 +100,8 @@ then
     fi
 fi
 
+[ -n "`which git`" ] && git fetch origin master
+
 # manpage comletion
 man_glob () {
   local a

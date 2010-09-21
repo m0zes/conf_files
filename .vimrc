@@ -39,3 +39,6 @@ function ToggleHex()
   let &modifiable=l:oldmodifiable
 endfunction
 
+filetype plugin on
+syntax on
+set nu
