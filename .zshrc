@@ -37,6 +37,7 @@ fi
 
 if [[ $(hostname) = 'athena' ]]; then
     alias sgeusedcores='/bin/bash ~/sgeusedcores.sh'
+    export PATH="/usr/local/bin:$PATH"
     . /opt/sge/util/dl.sh
     . /opt/sge/default/common/settings.sh
 fi
