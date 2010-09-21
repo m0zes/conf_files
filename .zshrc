@@ -38,6 +38,7 @@ fi
 if [[ $(hostname) = 'athena' ]]; then
     alias sgeusedcores='/bin/bash ~/sgeusedcores.sh'
     . /opt/sge/util/dl.sh
+    . /opt/sge/default/common/settings.sh
 fi
 
 alias indent='indent -br -brs -cdw -ce -nut -nbfda -npcs -nbfde -nbc -nbad -cli4'
@@ -126,15 +127,17 @@ fi
 export RPS1="%? %t"
 
 [ -z ${HOSTNAME} ] && HOSTNAME=$(uname -n)
-if [[ -z ${SSH_CONNECTION} ]] || [ "$HOSTNAME" == "athena" ] || [ "$HOSTNAME" == "loki" ]
+if [[ "${SSH_CONNECTION}" == "" ]] || [[ "$HOSTNAME" == "athena" ]] || [[ "$HOSTNAME" == "loki" ]]
 then
-  if [[ -z ${SGE_JOBID} ]] && [ "$TERM" != "dumb" ]
+  if [[ "${SGE_JOBID}" == "" ]] && [[ "$TERM" != "dumb" ]]
   then
     if [[ $(whoami) != 'root' ]]; then
-      [ -n "`which git`" ] && git fetch origin master ~/
       if which keychain 1>/dev/null 2>&1; then
         keychain id_rsa id_dsa
         . ~/.keychain/${HOSTNAME}-sh
+      fi
+      if which git 1>/dev/null 2>&1; then 
+        git fetch origin master
       fi
     fi
   fi
