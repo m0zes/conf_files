@@ -102,7 +102,10 @@ bindkey "^[[4~" end-of-line
 if [ -e /etc/beocat/beocat_users ]
 then
   accounts=( $(</etc/beocat/beocat_users) )
-  zstyle ':completion:*' accounts $accounts
+  zstyle -e ':completion:*' users          'reply=($accounts)'
+  zstyle -e ':completion:*' accounts       'reply=($accounts)'
+  zstyle -e ':completion:*' my-accounts    'reply=($accounts)'
+  zstyle -e ':completion:*' other-accounts 'reply=($accounts)'
 fi
 
 # allow approximate
