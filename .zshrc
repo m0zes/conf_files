@@ -97,6 +97,13 @@ bindkey "^[OH" beginning-of-line
 bindkey "^[OF" end-of-line 
 bindkey "^[[1~" beginning-of-line
 bindkey "^[[4~" end-of-line 
+
+if [ -e /etc/beocat/beocat_users ]
+then
+  accounts=( $(</etc/beocat/beocat_users) )
+  zstyle ':completion:*' accounts $accounts
+fi
+
 # allow approximate
 zstyle ':completion:*' completer _complete _match _approximate
 zstyle ':completion:*:match:*' original only
