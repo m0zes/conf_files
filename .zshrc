@@ -47,6 +47,14 @@ function lwhich() {
     ls -l $(which $@)
 }
 
+function _checkin() {
+  git push ssh://mozes@cislinux.cis.ksu.edu/~/public_html/conf_files.git
+}
+
+function _checkout() {
+  git pull origin master
+}
+
 #alias homed=' screen -U -R -D -S home ssh root@tygart.dyndns.org'
 alias irc=' ~/scripts/irc'
 
