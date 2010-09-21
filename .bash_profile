@@ -51,6 +51,7 @@ then
                 . ~/.keychain/${HOSTNAME}-sh
             fi
         fi
+    	git pull origin master ~/
     fi
 fi
 
