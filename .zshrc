@@ -20,6 +20,15 @@ export PYTHONPATH="$HOME/lib/python:$HOME/lib/python2.4/site-packages:$PYTHONPAT
 if [[ $(uname) = 'Darwin' ]]; then
   alias ls=' ls -GF'
   alias dmesg="sudo dmesg"
+  if [[ -e /Applications/MacVim.app/Contents/MacOS/MacVim ]]
+  then
+    alias gvim=/Applications/MacVim.app/Contents/MacOS/MacVim
+  fi
+  if [[ -e /Applications/MacVim.app/Contents/MacOS/Vim ]]
+  then
+    alias vim=/Applications/MacVim.app/Contents/MacOS/Vim
+    alias vi=/Applications/MacVim.app/Contents/MacOS/Vim
+  fi
 fi
 
 if [[ $(uname) = 'Linux' ]]; then
