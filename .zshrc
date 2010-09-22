@@ -44,13 +44,6 @@ if [[ $(uname) != 'SunOS' ]]; then
     alias grep='grep --colour=auto'
 fi
 
-if [[ $(hostname) = 'athena' ]]; then
-    alias sgeusedcores='/bin/bash ~/sgeusedcores.sh'
-    export PATH="/usr/local/bin:$PATH"
-    . /opt/sge/util/dl.sh
-    . /opt/sge/default/common/settings.sh
-fi
-
 alias indent='indent -br -brs -cdw -ce -nut -nbfda -npcs -nbfde -nbc -nbad -cli4'
 
 function lwhich() {
@@ -115,6 +108,10 @@ then
   zstyle -e ':completion:*' accounts       'reply=($accounts)'
   zstyle -e ':completion:*' my-accounts    'reply=($accounts)'
   zstyle -e ':completion:*' other-accounts 'reply=($accounts)'
+  alias sgeusedcores='/bin/bash ~/sgeusedcores.sh'
+  export PATH="/usr/local/bin:$PATH"
+  . /opt/sge/util/dl.sh
+  . /opt/sge/default/common/settings.sh
 fi
 
 # allow approximate
