@@ -284,3 +284,4 @@ xeon64-linux-2.6.31-gentoo-r10/
 zfsbackup-rev2.py
 zhangs84
 zsh
+*.pyc
