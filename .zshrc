@@ -6,6 +6,7 @@ fi
 if [[ $(uname) = 'SunOS' ]]; then
     export PATH="/usr/gnu/bin:/opt/sfw/bin:/opt/sfw/sbin:/usr/sbin:/sbin:$PATH"
     alias tar='gtar'
+    alias ls=' ls --color=auto -F'
 fi
 export PATH="$HOME/bin:$HOME/.homefiles/bin:$PATH"
 export HISTSIZE=1000
@@ -13,6 +14,7 @@ export SAVEHIST=1000
 export HISTFILE=~/.history
 export EDITOR="vim" VISUAL="vim"
 export PAGER="less"
+export EDITOR=/usr/bin/vim
 #export MANPAGER="col -b | view -c 'set ft=man nomod nolist nonu' -"
 export MANPATH="$HOME/share/man:/usr/share/man:$MANPATH"
 export PYTHONPATH="$HOME/lib/python:$HOME/lib/python2.4/site-packages:$PYTHONPATH"
@@ -28,6 +30,7 @@ if [[ $(uname) = 'Darwin' ]]; then
   then
     alias vim=/Applications/MacVim.app/Contents/MacOS/Vim
     alias vi=/Applications/MacVim.app/Contents/MacOS/Vim
+    export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
   fi
 fi
 
@@ -70,7 +73,6 @@ fi
 export HISTFILE=~/.$USER.zsh_history
 export HISTSIZE=50000
 export SAVEHIST=50000
-export EDITOR=/usr/bin/vim
 export SHELL=/bin/zsh
 export SED=sed
 # Shell options
@@ -110,8 +112,11 @@ then
   zstyle -e ':completion:*' other-accounts 'reply=($accounts)'
   alias sgeusedcores='/bin/bash ~/sgeusedcores.sh'
   export PATH="/usr/local/bin:$PATH"
-  . /opt/sge/util/dl.sh
-  . /opt/sge/default/common/settings.sh
+  if [[ -e /opt/sge/util/dl.sh ]]
+  then
+    . /opt/sge/util/dl.sh
+    . /opt/sge/default/common/settings.sh
+  fi
 fi
 
 # allow approximate
