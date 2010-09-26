@@ -157,7 +157,7 @@ fi
 export RPS1="%? %t"
 
 [ -z ${HOSTNAME} ] && HOSTNAME=$(uname -n)
-if [[ "${SSH_CONNECTION}" == "" ]] || [[ "$HOSTNAME" == "athena" ]] || [[ "$HOSTNAME" == "loki" ]]
+if [[ "${SSH_CONNECTION}" == "" ]] || [[ "$HOSTNAME" == "athena" ]] || [[ "$HOSTNAME" == "loki" ]] || [[ "$HOSTNAME" == "marlene" ]]
 then
   if [[ "${SGE_JOBID}" == "" ]] && [[ "$TERM" != "dumb" ]]
   then
