@@ -34,9 +34,19 @@ if [[ $(uname) = 'Darwin' ]]; then
   fi
 fi
 
+function _sudo() {
+  if [[ "${1}" == "-s" ]]
+  then
+    sudo -E $@
+  else
+    sudo $@
+  fi
+}
+
 if [[ $(uname) = 'Linux' ]]; then
   alias ls=' ls --color=auto -F'
   export ANDROID_JAVA_HOME=$JAVA_HOME
+  alias sudo="_sudo"
   if [ "$USER" != "root" ]
   then
     alias emerge='sudo emerge'
