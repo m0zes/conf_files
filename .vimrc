@@ -40,6 +40,34 @@ function ToggleHex()
 endfunction
 
 filetype on
+filetype plugin indent on
 filetype plugin on
 syntax on
 set nu
+set spell
+set cursorline
+set mouse=a
+set ruler
+set incsearch
+set laststatus=2
+set scrolloff=10
+
+if has("gui_running")
+  set guifont=Mensch:h12
+  colorscheme darkblue
+endif
+
+function! CurDir()
+    let curdir = substitute(getcwd(), '/Users/mozes', "~/", "g")
+    let curdir = substitute(curdir, '/homes/mozes', "~/", "g")
+    return curdir
+endfunction
+
+function! HasPaste()
+    if &paste
+        return 'PASTE MODE  '
+    else
+        return ''
+    endif
+endfunction
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{CurDir()}%h\ \ \ Line:\ %l/%L:%c
