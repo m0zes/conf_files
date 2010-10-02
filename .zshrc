@@ -176,13 +176,14 @@ then
         keychain id_rsa id_dsa
         . ~/.keychain/${HOSTNAME}-sh
       fi
-      if which git 1>/dev/null 2>&1; then 
-        _checkout
-      fi
     fi
   fi
 fi
-
+if [[ $(whoami) != 'root' ]]; then
+  if which git 1>/dev/null 2>&1; then 
+    _checkout
+  fi
+fi
 
 # manpage comletion
 man_glob () {
@@ -221,4 +222,4 @@ zstyle ':completion:*' verbose yes
 zstyle ':completion::complete:*' use-cache 1
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 export MANPATH=/opt/local/share/man:$MANPATH
-export DISPLAY=:0.0
+#export DISPLAY=:0.0
