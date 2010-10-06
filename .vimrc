@@ -44,9 +44,9 @@ filetype plugin indent on
 filetype plugin on
 syntax on
 set nu
-set spell
-set cursorline
-set mouse=a
+"set spell
+"set cursorline
+"set mouse=a
 set ruler
 set incsearch
 set laststatus=2
