@@ -167,9 +167,9 @@ fi
 export RPS1="%? %t"
 
 [ -z ${HOSTNAME} ] && HOSTNAME=$(uname -n)
-if [[ "${SSH_CONNECTION}" == "" ]] || [[ "$HOSTNAME" == "athena" ]] || [[ "$HOSTNAME" == "loki" ]] || [[ "$HOSTNAME" == "marlene" ]]
+if ([[ "${SSH_CONNECTION}" == "" ]] || [[ "$SSH_TTY" != "" ]]) || [[ "$HOSTNAME" == "athena" ]] || [[ "$HOSTNAME" == "loki" ]] || [[ "$HOSTNAME" == "marlene" ]]
 then
-  if [[ "${SGE_JOBID}" == "" ]] && [[ "$TERM" != "dumb" ]] && [[ "$SSH_TTY" != "" ]]
+  if [[ "${SGE_JOBID}" == "" ]] && [[ "$TERM" != "dumb" ]]
   then
     if [[ $(whoami) != 'root' ]]; then
       if which keychain 1>/dev/null 2>&1; then
