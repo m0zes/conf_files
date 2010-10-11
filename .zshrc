@@ -32,6 +32,13 @@ if [[ $(uname) = 'Darwin' ]]; then
     alias vi=/Applications/MacVim.app/Contents/MacOS/Vim
     export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
   fi
+  [ -z ${HOSTNAME} ] && HOSTNAME=$(uname -n)
+  if [[ $(whoami) != 'root' ]]; then
+    if which keychain 1>/dev/null 2>&1; then
+      keychain id_rsa id_dsa
+      . ~/.keychain/${HOSTNAME}-sh
+    fi
+  fi
 fi
 
 function _sudo() {
@@ -127,6 +134,16 @@ then
     . /opt/sge/util/dl.sh
     . /opt/sge/default/common/settings.sh
   fi
+  [ -z ${HOSTNAME} ] && HOSTNAME=$(uname -n)
+  if [[ "$HOSTNAME" == "athena" ]] || [[ "$HOSTNAME" == "loki" ]] 
+  then
+    if [[ $(whoami) != 'root' ]]; then
+      if which keychain 1>/dev/null 2>&1; then
+        keychain id_rsa id_dsa
+        . ~/.keychain/${HOSTNAME}-sh
+      fi
+    fi
+  fi
 fi
 
 # allow approximate
@@ -166,19 +183,6 @@ else
 fi
 export RPS1="%? %t"
 
-[ -z ${HOSTNAME} ] && HOSTNAME=$(uname -n)
-if ([[ "${SSH_CONNECTION}" == "" ]] || [[ "$SSH_TTY" != "" ]]) || [[ "$HOSTNAME" == "athena" ]] || [[ "$HOSTNAME" == "loki" ]] || [[ "$HOSTNAME" == "marlene" ]]
-then
-  if [[ "${SGE_JOBID}" == "" ]] && [[ "$TERM" != "dumb" ]]
-  then
-    if [[ $(whoami) != 'root' ]]; then
-      if which keychain 1>/dev/null 2>&1; then
-        keychain id_rsa id_dsa
-        . ~/.keychain/${HOSTNAME}-sh
-      fi
-    fi
-  fi
-fi
 if [[ $(whoami) != 'root' ]]; then
   if which git 1>/dev/null 2>&1; then 
     _checkout
