@@ -59,7 +59,12 @@ function _irc() {
       return 0
     fi
   fi
-  ssh -t mozes@beocat.cis.ksu.edu -p 2201 "screen -RRDD -S irc irssi"
+  if [[ -e /opt/sge/default/common/settings.sh ]]
+  then
+    ssh -t mozes@wedge "screen -RRDD -S irc irssi"
+  else
+    ssh -t mozes@beocat.cis.ksu.edu -p 2201 "screen -RRDD -S irc irssi"
+  fi
 }
 
 alias irc="_irc"
