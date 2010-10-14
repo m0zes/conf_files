@@ -50,6 +50,20 @@ function _sudo() {
   fi
 }
 
+function _irc() {
+  if [[ -e `which screen` ]]
+  then
+    if [[ -n "`screen -wipe 2>&1 >/dev/null; screen -ls 2>&1 | grep irc`" ]]
+    then
+      screen -RRDD -S irc irssi
+      return 0
+    fi
+  fi
+  ssh -t mozes@beocat.cis.ksu.edu -p 2201 "screen -RRDD -S irc irssi"
+}
+
+alias irc="_irc"
+
 if [[ $(uname) = 'Linux' ]]; then
   alias ls=' ls --color=auto -F'
   export ANDROID_JAVA_HOME=$JAVA_HOME
