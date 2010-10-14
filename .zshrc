@@ -92,9 +92,6 @@ function _checkout() {
   git pull origin master
 }
 
-#alias homed=' screen -U -R -D -S home ssh root@tygart.dyndns.org'
-alias irc=' ~/scripts/irc'
-
 if [ "$USER" != "root" ]
 then
   export PATH="$PATH:$HOME/scripts:$HOME/scripts/android-sdk-mac_86/tools:$HOME/scripts/android-sdk-mac_86/platforms/android-1.6/tools"
