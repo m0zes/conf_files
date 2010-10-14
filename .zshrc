@@ -59,7 +59,7 @@ function _irc() {
       return 0
     fi
   fi
-  if [[ -e /opt/sge/default/common/settings.sh ]]
+  if [[ -e "`which dnsdomainname`" ]] && [[ "`dnsdomainname`" == "beocat" ]]
   then
     ssh -t mozes@wedge "screen -RRDD -S irc irssi"
   else
