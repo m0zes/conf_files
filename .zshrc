@@ -97,7 +97,7 @@ function _checkin() {
 
 function _checkout() {
   cd ~/conf_files
-  git pull origin master
+  git pull origin 
   ./link_dot_files.sh
   cd -
 }
