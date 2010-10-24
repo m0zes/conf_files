@@ -90,11 +90,15 @@ function lwhich() {
 }
 
 function _checkin() {
+  cd ~/conf_files
   git push ssh://mozes@cislinux.cis.ksu.edu/~/public_html/conf_files.git
+  cd -
 }
 
 function _checkout() {
+  cd ~/conf_files
   git pull origin master
+  cd -
 }
 
 if [ "$USER" != "root" ]
@@ -148,7 +152,6 @@ then
   if [[ -e /opt/sge/util/dl.sh ]]
   then
     . /opt/sge/util/dl.sh
-#    . /opt/sge/default/common/settings.sh
   fi
   [ -z ${HOSTNAME} ] && HOSTNAME=$(uname -n)
   if [[ "$HOSTNAME" == "athena" ]] || [[ "$HOSTNAME" == "loki" ]] 
