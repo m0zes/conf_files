@@ -227,6 +227,14 @@ compctl -K packagelists rebuild
 zmodload zsh/complist
 autoload -U compinit && compinit -d ~/.zcompdump.${HOST} 
 
+if [[ ! -f ~/.zcompdump.$HOST.zwc ||
+    -n ${~:-~/.zshrc(Nmm+1)} &&
+    ~/.zcompdump.$HOST -nt \
+    ~/.zcompdump.$HOST.zwc ]];
+then
+    zcompile ~/.zcompdump.$HOST
+fi
+
 ### If you want zsh's completion to pick up new commands in $path automatically
 ### comment out the next line and un-comment the following 5 lines
 #zstyle ':completion:::::' completer _complete _approximate
