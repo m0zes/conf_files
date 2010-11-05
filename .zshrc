@@ -225,7 +225,7 @@ packagelists() {
 }
 compctl -K packagelists rebuild
 zmodload zsh/complist
-autoload -U compinit && compinit
+autoload -U compinit && compinit -d ~/.zcompdump.${HOST} 
 
 ### If you want zsh's completion to pick up new commands in $path automatically
 ### comment out the next line and un-comment the following 5 lines
