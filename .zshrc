@@ -52,6 +52,7 @@ function _sudo() {
 
 function _remoteconsole() {
   if [[ ! -e "$1" ]]
+  then
     echo "Requires hostname Dumbass!"
     return 1
   fi
