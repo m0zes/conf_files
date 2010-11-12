@@ -50,6 +50,31 @@ function _sudo() {
   fi
 }
 
+function _remoteconsole() {
+  if [[ ! -e "$1" ]]
+    echo "Requires hostname Dumbass!"
+    return 1
+  fi
+  HOST=$1.manage
+  if [[ -e "`which dnsdomainname`" ]] && [[ "`dnsdomainname`" == "beocat" ]]
+  then
+    if [[ "${HOSTNAME}" == "nyx" ]]
+    then
+      /usr/sbin/ipmitool -I lanplus -U admin -H ${HOST} -e '\`' sol activate
+    else
+      ssh m0zes@nyx "/usr/sbin/ipmitool -I lanplus -U admin -H ${HOST} -e '\`' sol activate"
+    fi
+  else
+    if [[ -e "$2" ]] && [[ "$2" == "jnlp" ]]
+    then
+      echo "Fire up the jnlp after the shell has fired off"
+      ssh m0zes@beocat.cis.ksu.edu -p 5022 -L 443:${HOST}:443 -L 5120:${HOST}:5120 -L 5121:${HOST}:5121 -L 5123:${HOST}:5123 -L 7578:${HOST}:7578 -L 5555:${HOST}:5555 -L 5556:${HOST}:5556 -L 6481:${HOST}:6481
+    else
+      ssh m0zes@beocat.cis.ksu.edu -p 5022 "/usr/sbin/ipmitool -I lanplus -U admin -H ${HOST} -e '\`' sol activate"
+    fi
+  fi
+}
+
 function _irc() {
   if [[ -e `which screen` ]]
   then
