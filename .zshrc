@@ -128,7 +128,7 @@ fi
 
 if [ -e /etc/beocat/beocat_users ]
 then
-  accounts=( $(</etc/beocat/beocat_*) )
+	accounts=( $(</etc/beocat/beocat_users) $(</etc/beocat/beocat_admins))
   zstyle -e ':completion:*' users          'reply=($accounts)'
   zstyle -e ':completion:*' accounts       'reply=($accounts)'
   zstyle -e ':completion:*' my-accounts    'reply=($accounts)'
@@ -269,6 +269,11 @@ zstyle ':completion:*' groups $groups
 if [[ -r $HOME/.ssh/known_hosts ]]; then
   sshhosts=(
     ${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[0-9]*}%%\ *}%%,*}
+  )
+fi
+if [[ -r /etc/ssh/ssh_known_hosts ]]; then
+  sshhosts=(
+    $sshhosts
     ${${${${(f)"$(</etc/ssh/ssh_known_hosts)"}:#[0-9]*}%%\ *}%%,*}
   )
 fi
