@@ -266,15 +266,15 @@ zstyle ':completion:*:cd:*' ignore-parents parent pwd
 
 groups=( "${(@)${(@f)$(</etc/group)}%%:*}" )
 zstyle ':completion:*' groups $groups
-if [[ -r $HOME/.ssh/known_hosts ]]; then
-  sshhosts=(
-    ${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[0-9]*}%%\ *}%%,*}
-  )
-fi
-if [[ -r /etc/ssh/ssh_known_hosts ]]; then
-  sshhosts=(
-    $sshhosts
-    ${${${${(f)"$(</etc/ssh/ssh_known_hosts)"}:#[0-9]*}%%\ *}%%,*}
-  )
-fi
-zstyle ':completion:*' hosts $sshhosts
+#if [[ -r $HOME/.ssh/known_hosts ]]; then
+#  sshhosts=(
+#    ${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[0-9]*}%%\ *}%%,*}
+#  )
+#fi
+#if [[ -r /etc/ssh/ssh_known_hosts ]]; then
+#  sshhosts=(
+#    $sshhosts
+#    ${${${${(f)"$(</etc/ssh/ssh_known_hosts)"}:#[0-9]*}%%\ *}%%,*}
+#  )
+#fi
+#zstyle ':completion:*' hosts $sshhosts
