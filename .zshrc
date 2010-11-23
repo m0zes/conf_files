@@ -131,8 +131,8 @@ then
 	accounts=( $(</etc/beocat/beocat_users) $(</etc/beocat/beocat_admins))
   zstyle -e ':completion:*' users          'reply=($accounts)'
   zstyle -e ':completion:*' accounts       'reply=($accounts)'
-  zstyle -e ':completion:*' my-accounts    'reply=($accounts)'
-  zstyle -e ':completion:*' other-accounts 'reply=($accounts)'
+  #zstyle -e ':completion:*' my-accounts    'reply=($accounts)'
+  #zstyle -e ':completion:*' other-accounts 'reply=($accounts)'
   alias sgeusedcores='/bin/bash ~/sgeusedcores.sh'
   export PATH="/usr/local/bin:$PATH"
   if [[ -e /opt/sge/util/dl.sh ]]
