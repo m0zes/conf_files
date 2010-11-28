@@ -44,7 +44,7 @@ function _remoteconsole() {
       stty -echo
       read PASS
       stty echo
-      ssh m0zes@beocat.cis.ksu.edu -t -p 5022 "/usr/sbin/ipmitool -I lanplus -U admin -H ${H} -P ${PASS} -e \\\` sol activate"
+      ssh m0zes@beocat.cis.ksu.edu -t -p 5022 "/usr/sbin/ipmitool -I lanplus -U admin -H ${H} -P ${PASS} -e \\\` sol activate" #\`
     fi
   fi
 }
@@ -88,13 +88,13 @@ if [[ $(uname) = 'SunOS' ]]; then
     export PATH="/usr/gnu/bin:/opt/sfw/bin:/opt/sfw/sbin:/usr/sbin:/sbin:$PATH"
     alias tar='gtar'
     alias ls=' ls --color=auto -F'
-    if [[ -e /var/run/screen ]]
-    then
-      mkdir /var/run/screen/S-$USER
-      chmod 700 /var/run/screen/S-$USER
+    if [[ -e /var/run/screen ]]; then
+      if [[ ! -e /var/run/screen/S-$USER ]]; then
+        mkdir /var/run/screen/S-$USER
+        chmod 700 /var/run/screen/S-$USER
+      fi
     else
-      if [[ "$USER" == "root" ]]
-      then
+      if [[ "$USER" == "root" ]]; then
         mkdir -p /var/run/screen
         sudo chmod 777 /var/run/screen 
         mkdir /var/run/screen/S-$USER
