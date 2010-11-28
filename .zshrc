@@ -32,7 +32,7 @@ function _remoteconsole() {
     then
       /usr/sbin/ipmitool -I lanplus -U admin -H ${H} -P ${PASS} -e '`' sol activate
     else
-      ssh m0zes@nyx -t "/usr/sbin/ipmitool -I lanplus -U admin -H ${H} -P ${PASS} -e \\\` sol activate"
+      ssh m0zes@nyx -t "/usr/sbin/ipmitool -I lanplus -U admin -H ${H} -P ${PASS} -e \\\` sol activate" #\`
     fi
   else
     if [[ -n "$2" ]] && [[ "$2" == "jnlp" ]]
@@ -83,11 +83,25 @@ function _checkout() {
   cd -
 }
 
-# Specific settings Dependding on what computer i am on...
+# Specific settings Depending on what computer i am on...
 if [[ $(uname) = 'SunOS' ]]; then
     export PATH="/usr/gnu/bin:/opt/sfw/bin:/opt/sfw/sbin:/usr/sbin:/sbin:$PATH"
     alias tar='gtar'
     alias ls=' ls --color=auto -F'
+    if [[ -e /var/run/screen ]]
+    then
+      mkdir /var/run/screen/S-$USER
+      chmod 700 /var/run/screen/S-$USER
+    else
+      if [[ "$USER" == "root" ]]
+      then
+        mkdir -p /var/run/screen
+        sudo chmod 777 /var/run/screen 
+        mkdir /var/run/screen/S-$USER
+        chmod 700 /var/run/screen/S-$USER
+      fi
+    fi
+    export SCREENDIR=/var/run/screen/S-$USER
 fi
 
 if [[ $(uname) = 'Darwin' ]]; then

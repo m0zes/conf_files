@@ -1,0 +1,14 @@
+# Tab bar
+#
+hardstatus off
+hardstatus alwayslastline
+hardstatus string "%{+b wk} %-w%{+b wk} *%n %t %{-}%+w %41=%H @ %l %-= %= %D, %c "
+startup_message off # Disable the startup messages
+defutf8 on     # Enable UTF-8
+defencoding UTF-8
+nonblock on    # If a window goes unresponsive, don't block the whole session waiting for it.
+defnonblock 5  # flaky/slow ssh lines
+altscreen on   # restore window contents after using (e.g.) vi
+defmonitor on  # turn monitoring on
+shell -$SHELL  # use the default shell
+defbce on      # erase background with current bg color
