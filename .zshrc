@@ -172,6 +172,16 @@ if [[ $(whoami) != 'root' ]]; then
   fi
 fi
 
+# Set screen title to hostname
+if [[ "${TERM[0,6]}" == "screen" ]]
+then
+  preexec () {
+    echo -ne "\ek${HOSTNAME} ${1%% *}\e\\"
+  }
+  precmd () {
+    echo -ne "\ek$HOSTNAME\e\\"
+  }
+fi
 
 alias irc="_irc"
 alias indent='indent -br -brs -cdw -ce -nut -nbfda -npcs -nbfde -nbc -nbad -cli4'
