@@ -3,6 +3,7 @@
 if [ -f /etc/profile ]; then
     source /etc/profile
 fi
+[ -z ${HOSTNAME} ] && HOSTNAME=$(uname -n)
 
 # Functions
 # Needed a sudo function, as simply sudo -s wasn't giving me my zsh shell with new versions of sudo
@@ -117,7 +118,6 @@ if [[ $(uname) = 'Darwin' ]]; then
     alias vi=/Applications/MacVim.app/Contents/MacOS/Vim
     export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
   fi
-  [ -z ${HOSTNAME} ] && HOSTNAME=$(uname -n)
   if [[ $(whoami) != 'root' ]]; then
     if which keychain 1>/dev/null 2>&1; then
       keychain id_rsa id_dsa
@@ -153,7 +153,6 @@ then
   then
     . /opt/sge/util/dl.sh
   fi
-  [ -z ${HOSTNAME} ] && HOSTNAME=$(uname -n)
   if [[ "$HOSTNAME" == "athena" ]] || [[ "$HOSTNAME" == "loki" ]] 
   then
     if [[ $(whoami) != 'root' ]]; then
