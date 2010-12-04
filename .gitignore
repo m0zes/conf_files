@@ -1,3 +1,4 @@
 *.pyc
 .zsh/*.zsh_history
 .zsh/.zcomp*
+*.swp

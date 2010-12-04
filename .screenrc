@@ -1,8 +1,10 @@
 # Tab bar
 #
 hardstatus off
-hardstatus alwayslastline
-hardstatus string '%{= kc}%H @ %l%{= kG} [%= %{= kw}%?%-w%?%{r}[%{W}%n %t%?{%u}%?%{r}]%{w}%?%+w%?%?%= %{g}]%{W} %{g}%{= kW}%D %Y-%m-%d %0c'
+#hardstatus alwayslastline
+#hardstatus string '%{= kc}%H @ %l%{= kG} [%= %{= kw}%?%-w%?%{r}[%{W}%n %t%?{%u}%?%{r}]%{w}%?%+w%?%?%= %{g}]%{W} %{g}%{= kW}%D %Y-%m-%d %0c'
+caption always '%{= kc}%H @ %l%{= kG} [%= %{= kw}%?%-w%?%{r}[%{W}%n %t%?{%u}%?%{r}]%{w}%?%+w%?%?%= %{g}]%{W} %{g}%{= kW}%D %Y-%m-%d %0c'
+#caption     always        "%{+b rk}%H%{gk} |%c %{yk}%d.%m.%Y | %72=Load: %l %{wk}"
 startup_message off # Disable the startup messages
 defutf8 on     # Enable UTF-8
 defencoding UTF-8
@@ -14,9 +16,9 @@ shell -$SHELL  # use the default shell
 defbce on      # erase background with current bg color
 
 #Terminfo
-termcap  xterm hs@:cs=\E[%i%d;%dr:im=\E[4h:ei=\E[4l
-terminfo xterm hs@:cs=\E[%i%p1%d;%p2%dr:im=\E[4h:ei=\E[4l
+#termcap  xterm hs@:cs=\E[%i%d;%dr:im=\E[4h:ei=\E[4l
+#terminfo xterm hs@:cs=\E[%i%p1%d;%p2%dr:im=\E[4h:ei=\E[4l
 termcapinfo xterm* ti@:te@ 
 termcapinfo xterm-color* OL=100
-termcapinfo xterm-color 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
+termcapinfo xterm* 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
 termcapinfo xterm-color* be

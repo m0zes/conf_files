@@ -172,15 +172,32 @@ if [[ $(whoami) != 'root' ]]; then
 fi
 
 # Set screen title to hostname
-if [[ "${TERM[0,6]}" == "screen" ]]
-then
-  preexec () {
-    echo -ne "\ek${HOSTNAME} ${1%% *}\e\\"
-  }
-  precmd () {
-    echo -ne "\ek$HOSTNAME\e\\"
-  }
-fi
+preexec () {
+  if [[ "${TERM[0,6]}" == "screen" ]]
+  then
+    if [[ $(whoami) != 'root' ]]; then
+      echo -ne "\ek${HOSTNAME} ${1%% *}\e\\"
+    else
+      echo -ne "\ek(r) ${HOSTNAME} ${1%% *}\e\\"
+    fi
+    echo -ne "\033_${USER}@${HOSTNAME}: ${1%% *}\033\\"
+  elif [[ "${TERM[0,5]}" == "xterm" ]]; then
+    echo -ne "\e]0;${USER}@${HOSTNAME}: ${PWD}\a"
+  fi
+}
+precmd () {
+  if [[ "${TERM[0,6]}" == "screen" ]]
+  then
+    if [[ $(whoami) != 'root' ]]; then
+      echo -ne "\ek${HOSTNAME}\e\\"
+    else
+      echo -ne "\ek(r) ${HOSTNAME}\e\\"
+    fi
+    echo -ne "\033_${USER}@${HOSTNAME}: ${PWD}\033\\"
+  elif [[ "${TERM[0,5]}" == "xterm" ]]; then
+    echo -ne "\e]0;${USER}@${HOSTNAME}: ${PWD}\a"
+  fi
+}
 
 alias irc="_irc"
 alias indent='indent -br -brs -cdw -ce -nut -nbfda -npcs -nbfde -nbc -nbad -cli4'
