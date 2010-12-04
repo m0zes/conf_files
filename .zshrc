@@ -1,7 +1,7 @@
 # .zshrc
 # Source /etc/profile if it exists. This contains per host settings for paths and such
 if [ -f /etc/profile ]; then
-    source /etc/profile
+    source /etc/profile 2>/dev/null
 fi
 [ -z ${HOSTNAME} ] && HOSTNAME=$(uname -n)
 
@@ -74,35 +74,35 @@ function lwhich() {
 function _checkin() {
   cd ~/conf_files
   git push ssh://mozes@cislinux.cis.ksu.edu/~/public_html/conf_files.git
-  cd -
+  cd - >/dev/null 2>&1
 }
 # git checkout for my config files.
 function _checkout() {
   cd ~/conf_files
   git pull origin 
   ./link_dot_files.sh
-  cd -
+  cd - >/dev/null 2>&1
 }
 
 # Specific settings Depending on what computer i am on...
 if [[ $(uname) = 'SunOS' ]]; then
-    export PATH="/usr/gnu/bin:/opt/sfw/bin:/opt/sfw/sbin:/usr/sbin:/sbin:$PATH"
-    alias tar='gtar'
-    alias ls=' ls --color=auto -F'
-    if [[ -e /var/run/screen ]]; then
-      if [[ ! -e /var/run/screen/S-$USER ]]; then
-        mkdir /var/run/screen/S-$USER
-        chmod 700 /var/run/screen/S-$USER
-      fi
-    else
-      if [[ "$USER" == "root" ]]; then
-        mkdir -p /var/run/screen
-        sudo chmod 777 /var/run/screen 
-        mkdir /var/run/screen/S-$USER
-        chmod 700 /var/run/screen/S-$USER
-      fi
+  export PATH="/usr/gnu/bin:/opt/sfw/bin:/opt/sfw/sbin:/usr/sbin:/sbin:$PATH"
+  alias tar='gtar'
+  alias ls=' ls --color=auto -F'
+  if [[ -e /var/run/screen ]]; then
+    if [[ ! -e /var/run/screen/S-$USER ]]; then
+      mkdir /var/run/screen/S-$USER
+      chmod 700 /var/run/screen/S-$USER
     fi
-    export SCREENDIR=/var/run/screen/S-$USER
+  else
+    if [[ "$USER" == "root" ]]; then
+      mkdir -p /var/run/screen
+      sudo chmod 777 /var/run/screen 
+      mkdir /var/run/screen/S-$USER
+      chmod 700 /var/run/screen/S-$USER
+    fi
+  fi
+  export SCREENDIR=/var/run/screen/S-$USER
 fi
 
 if [[ $(uname) = 'Darwin' ]]; then
@@ -142,19 +142,17 @@ fi
 
 if [ -e /etc/beocat/beocat_users ]
 then
-	accounts=( $(</etc/beocat/beocat_users) $(</etc/beocat/beocat_admins))
+  accounts=( $(</etc/beocat/beocat_users) $(</etc/beocat/beocat_admins))
   zstyle -e ':completion:*' users          'reply=($accounts)'
-  zstyle -e ':completion:*' accounts       'reply=($accounts)'
+  #zstyle -e ':completion:*' accounts       'reply=($accounts)'
   #zstyle -e ':completion:*' my-accounts    'reply=($accounts)'
   #zstyle -e ':completion:*' other-accounts 'reply=($accounts)'
   alias sgeusedcores='/bin/bash ~/sgeusedcores.sh'
   export PATH="/usr/local/bin:$PATH"
-  if [[ -e /opt/sge/util/dl.sh ]]
-  then
+  if [[ -e /opt/sge/util/dl.sh ]]; then
     . /opt/sge/util/dl.sh
   fi
-  if [[ "$HOSTNAME" == "athena" ]] || [[ "$HOSTNAME" == "loki" ]] 
-  then
+  if [[ "$HOSTNAME" == "athena" ]] || [[ "$HOSTNAME" == "loki" ]]; then
     if [[ $(whoami) != 'root' ]]; then
       if which keychain 1>/dev/null 2>&1; then
         keychain id_rsa id_dsa
@@ -171,16 +169,16 @@ if [[ $(whoami) != 'root' ]]; then
   fi
 fi
 
-# Set screen title to hostname
+# Handle screen and xterm titles
 preexec () {
   if [[ "${TERM[0,6]}" == "screen" ]]
   then
     if [[ $(whoami) != 'root' ]]; then
       echo -ne "\ek${HOSTNAME} ${1%% *}\e\\"
     else
-      echo -ne "\ek(r) ${HOSTNAME} ${1%% *}\e\\"
+      echo -ne "\ek*${HOSTNAME} ${1%% *}\e\\"
     fi
-    echo -ne "\033_${USER}@${HOSTNAME}: ${1%% *}\033\\"
+    echo -ne "\e_${USER}@${HOSTNAME}: ${1%% *}\e\\"
   elif [[ "${TERM[0,5]}" == "xterm" ]]; then
     echo -ne "\e]0;${USER}@${HOSTNAME}: ${PWD}\a"
   fi
@@ -191,9 +189,9 @@ precmd () {
     if [[ $(whoami) != 'root' ]]; then
       echo -ne "\ek${HOSTNAME}\e\\"
     else
-      echo -ne "\ek(r) ${HOSTNAME}\e\\"
+      echo -ne "\ek*${HOSTNAME}\e\\"
     fi
-    echo -ne "\033_${USER}@${HOSTNAME}: ${PWD}\033\\"
+    echo -ne "\e_${USER}@${HOSTNAME}: ${PWD}\e\\"
   elif [[ "${TERM[0,5]}" == "xterm" ]]; then
     echo -ne "\e]0;${USER}@${HOSTNAME}: ${PWD}\a"
   fi
@@ -204,13 +202,10 @@ alias indent='indent -br -brs -cdw -ce -nut -nbfda -npcs -nbfde -nbc -nbad -cli4
 alias -s gz=tar -zxvf
 alias -s bz2=tar -jxvf
 
-export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-export MANPATH=/opt/local/share/man:$MANPATH
-export PATH="$HOME/bin:$HOME/.homefiles/bin:$PATH"
+export PATH="/opt/local/bin:/opt/local/sbin:$HOME/bin:$PATH"
 export EDITOR="vim" VISUAL="vim"
 export PAGER="less"
-export MANPATH="$HOME/share/man:/usr/share/man:$MANPATH"
-export PYTHONPATH="$HOME/lib/python:$HOME/lib/python2.4/site-packages:$PYTHONPATH"
+export MANPATH="/opt/local/share/man:$HOME/share/man:/usr/share/man:$MANPATH"
 
 # Set some vars for progs
 export HISTFILE=~/.zsh/.$USER.zsh_history
@@ -242,8 +237,6 @@ bindkey "^[OH" beginning-of-line
 bindkey "^[OF" end-of-line 
 bindkey "^[[1~" beginning-of-line
 bindkey "^[[4~" end-of-line 
-
-
 
 # Prompts
 autoload colors
