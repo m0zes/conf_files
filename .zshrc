@@ -3,6 +3,7 @@
 if [ -f /etc/profile ]; then
     source /etc/profile 2>/dev/null
 fi
+
 [ -z ${HOSTNAME} ] && HOSTNAME=$(uname -n)
 
 # Functions
@@ -171,6 +172,9 @@ fi
 
 # Handle screen and xterm titles
 preexec () {
+  local HOSTNAME
+  [ -z ${HOSTNAME} ] && HOSTNAME=$(hostname -s 2>/dev/null)
+  [ -z ${HOSTNAME} ] && HOSTNAME=$(uname -n)
   if [[ "${TERM[0,6]}" == "screen" ]]
   then
     if [[ $(whoami) != 'root' ]]; then
@@ -184,6 +188,9 @@ preexec () {
   fi
 }
 precmd () {
+  local HOSTNAME
+  [ -z ${HOSTNAME} ] && HOSTNAME=$(hostname -s 2>/dev/null)
+  [ -z ${HOSTNAME} ] && HOSTNAME=$(uname -n)
   if [[ "${TERM[0,6]}" == "screen" ]]
   then
     if [[ $(whoami) != 'root' ]]; then
