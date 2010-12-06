@@ -164,7 +164,7 @@ then
 fi
 
 if [[ $(whoami) != 'root' ]]; then
-  export PATH="$PATH:$HOME/scripts:$HOME/scripts/android-sdk-mac_86/tools:$HOME/scripts/android-sdk-mac_86/platforms/android-1.6/tools"
+  export PATH="$PATH:$HOME/scripts:$HOME/scripts/android-sdk-mac_86/tools:$HOME/scripts/android-sdk-mac_86/platform-tools"
   if which git 1>/dev/null 2>&1; then 
     _checkout
   fi
