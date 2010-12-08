@@ -178,13 +178,13 @@ preexec () {
   if [[ "${TERM[0,6]}" == "screen" ]]
   then
     if [[ $(whoami) != 'root' ]]; then
-      echo -ne "\ek${HOSTNAME} ${1%% *}\e\\"
+      echo -ne "\ek${WINTITLE}${HOSTNAME} ${1%% *}\e\\"
     else
-      echo -ne "\ek*${HOSTNAME} ${1%% *}\e\\"
+      echo -ne "\ek*${WINTITLE}${HOSTNAME} ${1%% *}\e\\"
     fi
-    echo -ne "\e_${USER}@${HOSTNAME}: ${1%% *}\e\\"
+    echo -ne "\e_${WINTITLE}${USER}@${HOSTNAME}: ${1%% *}\e\\"
   elif [[ "${TERM[0,5]}" == "xterm" ]]; then
-    echo -ne "\e]0;${USER}@${HOSTNAME}: ${PWD}\a"
+    echo -ne "\e]0;${WINTITLE}${USER}@${HOSTNAME}: ${PWD}\a"
   fi
 }
 precmd () {
@@ -194,13 +194,13 @@ precmd () {
   if [[ "${TERM[0,6]}" == "screen" ]]
   then
     if [[ $(whoami) != 'root' ]]; then
-      echo -ne "\ek${HOSTNAME}\e\\"
+      echo -ne "\ek${WINTITLE}${HOSTNAME}\e\\"
     else
-      echo -ne "\ek*${HOSTNAME}\e\\"
+      echo -ne "\ek*${WINTITLE}${HOSTNAME}\e\\"
     fi
-    echo -ne "\e_${USER}@${HOSTNAME}: ${PWD}\e\\"
+    echo -ne "\e_${WINTITLE}${USER}@${HOSTNAME}: ${PWD}\e\\"
   elif [[ "${TERM[0,5]}" == "xterm" ]]; then
-    echo -ne "\e]0;${USER}@${HOSTNAME}: ${PWD}\a"
+    echo -ne "\e]0;${WINTITLE}${USER}@${HOSTNAME}: ${PWD}\a"
   fi
 }
 
