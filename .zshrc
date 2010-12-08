@@ -84,6 +84,14 @@ function _checkout() {
   ./link_dot_files.sh
   cd - >/dev/null 2>&1
 }
+#set window title
+function _title() {
+  if [[ "$1" != "" ]]; then
+    WINTITLE="$@ " && export WINTITLE
+  else
+    unset WINTITLE
+  fi
+}
 
 # Specific settings Depending on what computer i am on...
 if [[ $(uname) = 'SunOS' ]]; then
