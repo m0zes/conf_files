@@ -92,6 +92,35 @@ function _title() {
     unset WINTITLE
   fi
 }
+# Copy wii game to external disk
+function _wiimv() {
+  WITCMD=/Users/mozes/Downloads/wit-v1.23b-r2096-mac/bin/wit
+  for game in $@; do 
+    GAME=$( $WITCMD LS -H ${game} | tr -d '[:punct:]' | tr '\ ' '#' )
+    GAMEID=$( echo ${GAME} | sed -e 's/##.*//' )
+    TITLE=$( echo ${GAME} | sed -e 's/.*##//' -e 's/#/_/g' )
+    if [[ -n "${GAMEID}" ]] && [[ -n "${TITLE}" ]] && [[ -f ${game} ]]; then
+      mkdir -p /Volumes/WiiGames/wbfs/${GAMEID}_${TITLE}/
+      $WITCMD CP -B ${game} -d /Volumes/WiiGames/wbfs/${GAMEID}_${TITLE}/${GAMEID}.wbfs
+      rm ${game}
+    fi
+  done
+}
+# unrar all rar files in the passed directories
+function _tbunrar() {
+  if [[ "$1" == "-h" ]]; then
+    echo "_tbunrar dir\ to\ extract"
+    return
+  elif [[ "$1" == "" ]]; then
+    _tbunrar $PWD
+    return
+  fi
+  for dir in $@ ; do
+    for arc in `find $dir -iname '*01.rar' -o -iname '*.r01'`; do
+      unrar e ${arc}
+    done
+  done
+}
 
 # Specific settings Depending on what computer i am on...
 if [[ $(uname) = 'SunOS' ]]; then
