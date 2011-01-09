@@ -172,6 +172,10 @@ if [[ $(uname) = 'Linux' ]]; then
   then
     alias emerge='sudo emerge'
   fi
+  if [ -e /usr/bin/time ]
+  then
+    alias time="/usr/bin/time -f 'real %e\nuser %U\nsys %S\nmem %M\n'"
+  fi
 fi
 
 if [[ $(uname) != 'SunOS' ]]; then
