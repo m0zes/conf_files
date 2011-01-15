@@ -43,9 +43,9 @@ function _remoteconsole() {
       sudo ssh m0zes@beocat.cis.ksu.edu -p 5022 -L 443:${H}:443 -L 5120:${H}:5120 -L 5121:${H}:5121 -L 5123:${H}:5123 -L 7578:${H}:7578 -L 5555:${H}:5555 -L 5556:${H}:5556 -L 6481:${H}:6481 -L 8890:${H}:8890 -L 9000:${H}:9000 -L 9001:${H}:9001 -L 9002:${H}:9002 -L 9003:${H}:9003 -L 17990:${H}:17990 -L 17988:${H}:17988 -L 623:${H}:623
     else
       echo "Enter password for admin on the remote host: "
-      stty -echo
+      stty -echo 
       read PASS
-      stty echo
+      stty echo 
       ssh m0zes@beocat.cis.ksu.edu -t -p 5022 "/usr/sbin/ipmitool -I lanplus -U admin -H ${H} -P ${PASS} -e \\\` sol activate" #\`
     fi
   fi
@@ -227,6 +227,8 @@ preexec () {
   elif [[ "${TERM[0,5]}" == "xterm" ]]; then
     echo -ne "\e]0;${WINTITLE}${USER}@${HOSTNAME}: ${PWD}\a"
   fi
+  # Time elapsed from bstinson
+  LAST_COMMAND_STARTED=$(print -Pn '%D{%s}')
 }
 precmd () {
   local HOSTNAME
@@ -242,6 +244,13 @@ precmd () {
     echo -ne "\e_${WINTITLE}${USER}@${HOSTNAME}: ${PWD}\e\\"
   elif [[ "${TERM[0,5]}" == "xterm" ]]; then
     echo -ne "\e]0;${WINTITLE}${USER}@${HOSTNAME}: ${PWD}\a"
+  fi
+  # Time elapsed from bstinson
+  TIME_NOW=$(print -Pn '%D{%s}')
+  if [[ ${LAST_COMMAND_STARTED} -ne "" ]]; then
+    let "SECONDS_ELAPSED = ${TIME_NOW} - ${LAST_COMMAND_STARTED}"
+  else
+    SECONDS_ELAPSED=0
   fi
 }
 
@@ -287,17 +296,18 @@ bindkey "^[[1~" beginning-of-line
 bindkey "^[[4~" end-of-line 
 
 # Prompts
+setopt prompt_subst
 autoload colors
 colors
 ZLS_COLORS=$LS_COLORS
 if [ "$USER" = "root" ]
 then
-  export PS1=" %{${fg[red]}%}%n%{${fg_bold[yellow]}%}@[%m] %{${fg[blue]}%}%~%{${reset_color}%} $ "
-  export PATH="${PATH}:~mozes/scripts"
+  export PS1=' %{${fg[red]}%}%n%{${fg_bold[yellow]}%}@[%m] %{${fg[blue]}%}%~%{${reset_color}%} $ '
+  export PATH='${PATH}:~mozes/scripts'
 else
-  export PS1="%{${fg[green]}%}%n%{${fg_bold[yellow]}%}@[%m] %{${fg[blue]}%}%~%{${reset_color}%} $ "
+  export PS1='%{${fg[green]}%}%n%{${fg_bold[yellow]}%}@[%m] %{${fg[blue]}%}%~%{${reset_color}%} $ '
 fi
-export RPS1="%? %t"
+export RPROMPT='%? ${SECONDS_ELAPSED} %t '
 
 # manpage completion
 man_glob () {
