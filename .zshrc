@@ -40,7 +40,7 @@ function _remoteconsole() {
     if [[ -n "$2" ]] && [[ "$2" == "jnlp" ]]
     then
       echo "Fire up the jnlp after the shell has fired off"
-      sudo ssh m0zes@beocat.cis.ksu.edu -p 5022 -L 443:${H}:443 -L 5120:${H}:5120 -L 5121:${H}:5121 -L 5123:${H}:5123 -L 7578:${H}:7578 -L 5555:${H}:5555 -L 5556:${H}:5556 -L 6481:${H}:6481 -L 8890:${H}:8890 -L 9000:${H}:9000 -L 9001:${H}:9001 -L 9002:${H}:9002 -L 9003:${H}:9003
+      sudo ssh m0zes@beocat.cis.ksu.edu -p 5022 -L 443:${H}:443 -L 5120:${H}:5120 -L 5121:${H}:5121 -L 5123:${H}:5123 -L 7578:${H}:7578 -L 5555:${H}:5555 -L 5556:${H}:5556 -L 6481:${H}:6481 -L 8890:${H}:8890 -L 9000:${H}:9000 -L 9001:${H}:9001 -L 9002:${H}:9002 -L 9003:${H}:9003 -L 17990:${H}:17990 -L 17988:${H}:17988 -L 623:${H}:623
     else
       echo "Enter password for admin on the remote host: "
       stty -echo 
