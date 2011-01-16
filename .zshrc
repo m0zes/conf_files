@@ -303,7 +303,7 @@ ZLS_COLORS=$LS_COLORS
 if [ "$USER" = "root" ]
 then
   export PS1=' %{${fg[red]}%}%n%{${fg_bold[yellow]}%}@[%m] %{${fg[blue]}%}%~%{${reset_color}%} $ '
-  export PATH='${PATH}:~mozes/scripts'
+  export PATH="${PATH}:~mozes/scripts"
 else
   export PS1='%{${fg[green]}%}%n%{${fg_bold[yellow]}%}@[%m] %{${fg[blue]}%}%~%{${reset_color}%} $ '
 fi
