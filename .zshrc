@@ -11,9 +11,9 @@ fi
 function _sudo() {
   if [[ "${1}" == "-s" ]]
   then
-    sudo -E $@
+    \sudo -E $@
   else
-    sudo $@
+    \sudo $@
   fi
 }
 # Allows remote console access to nodes on Beocat
