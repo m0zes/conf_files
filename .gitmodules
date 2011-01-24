@@ -1,12 +1,12 @@
 [submodule ".vim/bundle/tlib_vim"]
 	path = .vim/bundle/tlib_vim
-	url = git://github.com/tomtom/tlib_vim.git
+	url = http://github.com/tomtom/tlib_vim.git
     ignore = dirty
 [submodule ".vim/bundle/trag_vim"]
 	path = .vim/bundle/trag_vim
-	url = https://github.com/tomtom/trag_vim.git
+	url = http://github.com/tomtom/trag_vim.git
     ignore = dirty
 [submodule ".vim/bundle/vimwiki"]
 	path = .vim/bundle/vimwiki
-	url = https://github.com/vim-scripts/vimwiki.git
+	url = http://github.com/vim-scripts/vimwiki.git
     ignore = dirty
