@@ -122,6 +122,10 @@ function _tbunrar() {
   done
 }
 
+function _parse_git_branch(){
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ [\1]/'
+}
+
 # Specific settings Depending on what computer i am on...
 if [[ $(uname) = 'SunOS' ]]; then
   export PATH="/usr/gnu/bin:/opt/sfw/bin:/opt/sfw/sbin:/usr/sbin:/sbin:$PATH"
@@ -307,7 +311,7 @@ then
 else
   export PS1='%{${fg[green]}%}%n%{${fg_bold[yellow]}%}@[%m] %{${fg[blue]}%}%~%{${reset_color}%} $ '
 fi
-export RPROMPT='%? ${SECONDS_ELAPSED} %t '
+export RPROMPT='%?$(_parse_git_branch) ${SECONDS_ELAPSED} %t '
 
 # manpage completion
 man_glob () {
