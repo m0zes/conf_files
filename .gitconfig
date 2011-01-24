@@ -1,0 +1,13 @@
+[color]
+	ui = auto
+[user]
+	email = adam.tygart@gmail.com
+	name = Adam Tygart
+[alias]
+	lg = log --pretty=format:'%Cred%h%Creset - %Creset %s %Cgreen(%cr %an)%Creset' --abbrev-commit --date=relative
+[merge]
+	tool = vimdiff
+[branch]
+	autosetupmerge = true
+[review "review.cyanogenmod.com"]
+	username = m0zes
