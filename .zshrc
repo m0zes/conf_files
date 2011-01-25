@@ -232,7 +232,9 @@ preexec () {
     echo -ne "\e]0;${WINTITLE}${USER}@${HOSTNAME}: ${PWD}\a"
   fi
   # Time elapsed from bstinson
-  LAST_COMMAND_STARTED=$(print -Pn '%D{%s}')
+  if [[ $(uname) != 'SunOS' ]]; then
+    LAST_COMMAND_STARTED=$(print -Pn '%D{%s}')
+  fi
 }
 precmd () {
   local HOSTNAME
@@ -250,11 +252,13 @@ precmd () {
     echo -ne "\e]0;${WINTITLE}${USER}@${HOSTNAME}: ${PWD}\a"
   fi
   # Time elapsed from bstinson
-  TIME_NOW=$(print -Pn '%D{%s}')
-  if [[ ${LAST_COMMAND_STARTED} -ne "" ]]; then
-    let "SECONDS_ELAPSED = ${TIME_NOW} - ${LAST_COMMAND_STARTED}"
-  else
-    SECONDS_ELAPSED=0
+  if [[ $(uname) != 'SunOS' ]]; then
+    TIME_NOW=$(print -Pn '%D{%s}')
+    if [[ ${LAST_COMMAND_STARTED} -ne "" ]]; then
+      let "SECONDS_ELAPSED = ${TIME_NOW} - ${LAST_COMMAND_STARTED}"
+    else
+      SECONDS_ELAPSED=0
+    fi
   fi
 }
 
