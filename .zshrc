@@ -180,6 +180,12 @@ if [[ $(uname) = 'Linux' ]]; then
   then
     alias time="/usr/bin/time -f 'real %e\nuser %U\nsys %S\nmem %M\n'"
   fi
+  if [[ ! -e /etc/beocat/beocat_users ]]; then
+    if which keychain 1>/dev/null 2>&1; then
+      keychain id_rsa id_dsa
+      . ~/.keychain/${HOSTNAME}-sh
+    fi
+  fi
 fi
 
 if [[ $(uname) != 'SunOS' ]]; then
