@@ -22,7 +22,7 @@ function readlinkf() {
 PATHTODOTFILES=$( dirname `readlinkf $0` )
 RELPATHTODOTFILES=${PATHTODOTFILES##`readlinkf ~`}
 cd ~
-for x in `ls -A1 $PATHTODOTFILES | grep -v .git$ | grep -v gitignore | grep -v gitmodules | grep -v '.*.swp' | grep -v $(basename $0)`
+for x in `ls -A1 $PATHTODOTFILES | grep -v .git$ | grep -v gitignore | grep -v gitmodules | grep -v '.*.swp' | grep -v $(basename $0) | grep -v README`
 do 
 	ln -snf .$RELPATHTODOTFILES/${x}
 done
