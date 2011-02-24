@@ -126,6 +126,10 @@ function _parse_git_branch(){
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ [\1]/'
 }
 
+function _tunnel_synergy(){
+  ssh -f -N -L localhost:24800:129.130.10.235:24800 129.130.10.235
+}
+
 # Specific settings Depending on what computer i am on...
 if [[ $(uname) = 'SunOS' ]]; then
   export PATH="/usr/gnu/bin:/opt/sfw/bin:/opt/sfw/sbin:/usr/sbin:/sbin:$PATH"
@@ -180,7 +184,7 @@ if [[ $(uname) = 'Linux' ]]; then
   then
     alias time="/usr/bin/time -f 'real %e\nuser %U\nsys %S\nmem %M\n'"
   fi
-  if [[ ! -e /etc/beocat/beocat_users ]]; then
+  if [[ ! -e /etc/beocat/beocat_users ] && [ "$USER" != "root" ]]; then
     if which keychain 1>/dev/null 2>&1; then
       keychain id_rsa id_dsa
       . ~/.keychain/${HOSTNAME}-sh
