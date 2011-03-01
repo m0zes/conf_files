@@ -129,6 +129,9 @@ function _parse_git_branch(){
 function _tunnel_synergy(){
   ssh -f -N -L localhost:24800:129.130.10.235:24800 129.130.10.235
 }
+function _tunnel_opsview(){
+  ssh -f -N -L localhost:8080:opsview:80 beocat.cis.ksu.edu
+}
 
 # Specific settings Depending on what computer i am on...
 if [[ $(uname) = 'SunOS' ]]; then
