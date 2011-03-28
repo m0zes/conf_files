@@ -179,6 +179,7 @@ if [[ $(uname) = 'Linux' ]]; then
   alias ls=' ls --color=auto -F'
   export ANDROID_JAVA_HOME=$JAVA_HOME
   alias sudo="_sudo"
+  alias vi="vim"
   if [ "$USER" != "root" ]
   then
     alias emerge='sudo emerge'
