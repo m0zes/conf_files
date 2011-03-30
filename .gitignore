@@ -2,3 +2,7 @@
 .zsh/*.zsh_history
 .zsh/.zcomp*
 *.swp
+.xmonad/*.hi
+.xmonad/*.errors
+.xmonad/xmonad-*
+.xmonad/*.o

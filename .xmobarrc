@@ -1,0 +1,15 @@
+Config { font = "-*-Fixed-Bold-R-Normal-*-13-*-*-*-*-*-*-*"
+       , bgColor = "black"
+       , fgColor = "grey"
+       , position = TopW L 95
+       , commands = [ Run Weather "KTOP" ["-t","<tempF>F","-L","64","-H","77","--normal","green","--high","red","--low","lightblue"] 36000
+                    , Run Cpu ["-t","C: <total>%","-L","3","-H","50","--normal","green","--high","red"] 20
+                    , Run Memory ["-t","M: <usedratio>%"] 20
+                    , Run Date "%b %_d %H:%M" "date" 20
+                    , Run Battery ["-t", "B: <left>%"] 100
+                    , Run StdinReader
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%StdinReader% }{ %cpu% | %memory% | %battery% | <fc=#ee9a00>%date%</fc> | %KTOP%"
+       }
