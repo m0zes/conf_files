@@ -47,7 +47,7 @@ then
     then
         if which keychain 1>/dev/null 2>&1; then
             if [[ $(whoami) != 'root' ]]; then
-                keychain id_rsa id_dsa
+                #keychain id_rsa id_dsa
                 . ~/.keychain/${HOSTNAME}-sh
             fi
         fi
