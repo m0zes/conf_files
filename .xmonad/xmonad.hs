@@ -12,7 +12,7 @@ main = do
         , layoutHook = avoidStruts $ layoutHook defaultConfig
         , logHook = dynamicLogWithPP $ xmobarPP
             { ppOutput = hPutStrLn xmproc
-            , ppTitle = xmobarColor "green" "" . shorten 65
+            , ppTitle = xmobarColor "#F44444" "" . shorten 65
             }
         , terminal = "urxvt -bg black -fg white +sb -vb"
         , borderWidth = 1
