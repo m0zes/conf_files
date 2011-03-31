@@ -19,9 +19,9 @@ main = do
         , normalBorderColor = "#dddddd"
         , focusedBorderColor = "#963c59"
         } `additionalKeys`
-		[ ((mod1Mask,		xK_F10), spawn "amixer set Master +5%")
-        , ((mod1Mask,		xK_F9 ), spawn "amixer set Master -5%")
-        , ((mod1Mask,		xK_F8 ), spawn "amixer set Master toggle")
+        [ ((mod1Mask,		xK_F10), spawn "amixer set Master 5%+")
+        , ((mod1Mask,		xK_F9 ), spawn "amixer set Master 5%-")
+        , ((mod1Mask,		xK_F8 ), spawn "amixer set Master toggle; amixer set Beep toggle")
         , ((mod1Mask,		xK_F7 ), spawn "xbacklight -inc 12")
         , ((mod1Mask,		xK_F6 ), spawn "xbacklight -dec 10")
         ]
