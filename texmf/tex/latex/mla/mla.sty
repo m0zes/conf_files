@@ -98,7 +98,7 @@
 %
 \setlength{\paperheight}{11in}
 \setlength{\paperwidth}{8.5in}
-\setlength{\textwidth}{6.5in}
+\setlength{\textwidth}{6.4in}
 \setlength{\textheight}{9in}
 \setlength{\footskip}{40pt}
 
@@ -179,7 +179,7 @@
 %
 %   MLA environment
 %
-\newenvironment{mla}[6]{\newcommand{\lastname}{#2} \fancyhead[RO]{\lastname\ \thepage} \raggedright #1\ #2 \\  #3 \\ #4 \\ #5 \\ \centering #6 \\ \frenchspacing\setlength{\parindent}{.5in}}{\newpage}
+\newenvironment{mla}[6]{\newcommand{\lastname}{#2} \fancyhead[RO]{\lastname\ \thepage} \begin{flushleft} #1\ #2 \\  #3 \\ #4 \\ #5 \\ \end{flushleft} \begin{center} #6 \\\end{center} \frenchspacing\setlength{\parindent}{.5in}}{\newpage}
 
 %
 %   Block quote environment
