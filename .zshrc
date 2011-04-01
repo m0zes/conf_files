@@ -1,5 +1,10 @@
 # .zshrc
 # Source /etc/profile if it exists. This contains per host settings for paths and such
+if [[ "${TERM[0,4]}" == "rxvt" ]]
+then
+  export TERM=xterm-color
+fi
+
 if [ -f /etc/profile ]; then
     source /etc/profile 2>/dev/null
 fi
