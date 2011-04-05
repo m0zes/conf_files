@@ -14,7 +14,7 @@ main = do
             { ppOutput = hPutStrLn xmproc
             , ppTitle = xmobarColor "#F44444" "" . shorten 65
             }
-        , terminal = "urxvt -bg black -fg white +sb -vb"
+        , terminal = "exec urxvt -bg black -fg white +sb -vb"
         , borderWidth = 1
         , normalBorderColor = "#dddddd"
         , focusedBorderColor = "#963c59"
