@@ -53,7 +53,7 @@ set laststatus=2
 set scrolloff=10
 
 if has("gui_running")
-  set guifont=Mensch:h12
+  set guifont=Mensch\ 10
   colorscheme darkblue
 endif
 
