@@ -138,6 +138,9 @@ function _tunnel_opsview(){
   ssh -f -N -L localhost:8080:opsview:80 beocat.cis.ksu.edu
 }
 
+# Set default path
+export PATH="/opt/local/bin:/opt/local/sbin:$HOME/bin:$PATH"
+
 # Specific settings Depending on what computer i am on...
 if [[ $(uname) = 'SunOS' ]]; then
   export PATH="/usr/gnu/bin:/opt/sfw/bin:/opt/sfw/sbin:/usr/sbin:/sbin:$PATH"
@@ -286,7 +289,6 @@ alias indent='indent -br -brs -cdw -ce -nut -nbfda -npcs -nbfde -nbc -nbad -cli4
 alias -s gz=tar -zxvf
 alias -s bz2=tar -jxvf
 
-export PATH="/opt/local/bin:/opt/local/sbin:$HOME/bin:$PATH"
 export EDITOR="vim" VISUAL="vim"
 export PAGER="less"
 export MANPATH="/opt/local/share/man:$HOME/share/man:/usr/share/man:$MANPATH"
