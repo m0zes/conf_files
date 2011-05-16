@@ -1,3 +1,43 @@
+" Pathogen setup (python)
+filetype off
+call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
+
+"Folding
+set foldmethod=indent
+set foldlevel=99
+
+" Window movements
+map <c-j> <c-w>j
+map <c-k> <c-w>k
+map <c-l> <c-w>l
+map <c-h> <c-w>h
+
+"Tasklists \td
+map <leader>td <Plug>TaskList
+
+"Revision history \g
+map <leader>g :GundoToggle<CR>
+
+"Syntax highlighting and validation
+syntax on
+filetype on
+filetype plugin indent on
+
+let g:pyflakes_use_quickfix = 0
+
+"PEP8 code consistency \8
+let g:pep8_map='<leader>8'
+
+"Python tab completion
+au FileType python set omnifunc=pythoncomplete#Complete
+let g:SuperTabDefaultCompletionType = "context"
+set completeopt=menuone,longest,preview
+			
+"Python refactoring
+map <leader>j :RopeGotoDefinition<CR>
+map <leader>r :RopeRename<CR>
+
 " ex command for toggling hex mode - define mapping if desired
 command -bar Hexmode call ToggleHex()
 
@@ -39,10 +79,7 @@ function ToggleHex()
   let &modifiable=l:oldmodifiable
 endfunction
 
-filetype on
 filetype plugin indent on
-filetype plugin on
-syntax on
 set nu
 "set spell
 "set cursorline
@@ -79,3 +116,5 @@ endif
 
 " This beauty remembers where you were the last time you edited the file, and returns to the same position.
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
+autocmd BufRead *.py inoremap # X<c-h>#
+let python_highlight_all = 1
